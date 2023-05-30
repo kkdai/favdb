@@ -32,14 +32,14 @@ func main() {
     // `GITHUB_URL` is a string combine with "USE/REPO/GITHU_TOKEN".
     gitUrl := os.Getenv("GITHUB_URL")
     if url != "" {
-    // Use PostgresSQL as DB.
-    DB = favdb.NewPGSql(url)
+        // Use PostgresSQL as DB.
+        DB = favdb.NewPGSql(url)
     } else if gitUrl != "" {
-    // Use Github Issue as DB.
-    DB = favdb.NewGithubDB(gitUrl)
+        // Use Github Issue as DB.
+        DB = favdb.NewGithubDB(gitUrl)
     } else {
-    //Use memory as DB
-    DB = favdb.NewMemDB()
+        //Use memory as DB
+        DB = favdb.NewMemDB()
     }
 
     addBookmarkArticle("title1", "Fav1")
@@ -49,24 +49,22 @@ func main() {
 func addBookmarkArticle(user, fav string) {
     newFavoriteArticle := fav
     newUser := favdb.UserFavorite{
-    UserId:    user,
-    Favorites: []string{newFavoriteArticle},
+        UserId:    user,
+        Favorites: []string{newFavoriteArticle},
     }
     if record, err := DB.Get(user); err != nil {
-    log.Println("User data is not created, create a new one")
-    DB.Add(newUser)
-    log.Println(newFavoriteArticle, "Add user/fav")
+        //User data is not created, create a new one
+        DB.Add(newUser)
     } else {
-    log.Println("Record found, update it", record)
-    oldRecords := record.Favorites
-    if exist, idx := favdb.InArray(newFavoriteArticle, oldRecords); exist == true {
-    oldRecords = favdb.RemoveStringItem(oldRecords, idx)
-    } else {
-    log.Println(newFavoriteArticle, "Add fav")
-    oldRecords = append(oldRecords, newFavoriteArticle)
-    }
-    record.Favorites = oldRecords
-    DB.Update(record)
+        //Record found, update it
+        oldRecords := record.Favorites
+        if exist, idx := favdb.InArray(newFavoriteArticle, oldRecords); exist == true {
+            oldRecords = favdb.RemoveStringItem(oldRecords, idx)
+        } else {
+            oldRecords = append(oldRecords, newFavoriteArticle)
+        }
+        record.Favorites = oldRecords
+        DB.Update(record)
     }
 }
 ```
@@ -76,7 +74,7 @@ If you want to run it directly, just run
 ### Github Issue
 
 ```
-go install github.com/kkdai/photomgr/example/github_issue
+    go install github.com/kkdai/photomgr/example/github_issue
 ```
 
 Contribute

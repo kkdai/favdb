@@ -124,7 +124,7 @@ func (u *GithubDB) saveIssue(title, body string) error {
 
 	_, _, err := u.Client.Issues.Create(context.Background(), u.Name, u.Repo, input)
 	if err != nil {
-		fmt.Printf("Issues.Create returned error: %v", err)
+		log.Printf("Issues.Create returned error: %v", err)
 		return err
 	}
 	return nil
@@ -133,15 +133,13 @@ func (u *GithubDB) saveIssue(title, body string) error {
 func (u *GithubDB) getIssue(title string) (string, int, error) {
 	ret, _, err := u.Client.Search.Issues(context.Background(), title, nil)
 	if err != nil {
-		fmt.Printf("Issues.search returned error: %v", err)
+		log.Printf("Issues.search returned error: %v", err)
 		return "", 0, err
 	}
 
-	log.Println("issue ret:", ret)
-	for _, v := range ret.Issues {
-		log.Println("Issue Num:", v.Number)
-		log.Println("Body:", v.Body)
-		log.Println("Comments:", v.Comments)
+	if strings.Compare(*((*ret).Issues[0].State), "closed") == 0 {
+		log.Println("Issue not found:", title)
+		return "", 0, fmt.Errorf("not found")
 	}
 	return *ret.Issues[0].Body, *ret.Issues[0].Number, nil
 }

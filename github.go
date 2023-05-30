@@ -46,8 +46,8 @@ func NewGithubDB(dbStr string) *GithubDB {
 }
 
 func (u *GithubDB) Add(user UserFavorite) {
-	// Check if user exist.
-	if v, num, err := u.getIssue(user.UserId); err != nil {
+	// Check if user exist, return.
+	if v, num, err := u.getIssue(user.UserId); err == nil {
 		//exist.
 		log.Println("User:", user.UserId, "exist, num=", num, " v=", v)
 		return

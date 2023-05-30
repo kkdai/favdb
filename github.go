@@ -131,17 +131,22 @@ func (u *GithubDB) saveIssue(title, body string) error {
 }
 
 func (u *GithubDB) getIssue(title string) (string, int, error) {
-	ret, _, err := u.Client.Search.Issues(context.Background(), title, nil)
+	// 替換為你的 GitHub repository owner 和 repository name
+	issues, _, err := u.Client.Issues.ListByRepo(context.Background(), u.Name, u.Repo, nil)
 	if err != nil {
-		log.Printf("Issues.search returned error: %v", err)
-		return "", 0, err
+		fmt.Printf("Error: %v\n", err)
+		return "", 0, fmt.Errorf("github error")
 	}
 
-	if strings.Compare(*((*ret).Issues[0].State), "closed") == 0 {
-		log.Println("Issue not found:", title)
-		return "", 0, fmt.Errorf("not found")
+	// 尋找指定的 issue title
+	for _, issue := range issues {
+		if strings.Compare(*issue.Title, title) == 0 {
+			log.Printf("Issue with title '%s' found. %v \n", title, *issue)
+			return *issue.Body, *issue.Number, nil
+		}
 	}
-	return *ret.Issues[0].Body, *ret.Issues[0].Number, nil
+	// not found.
+	return "", 0, fmt.Errorf("issue not found")
 }
 
 func (u *GithubDB) updateIssue(number int, title string, updatedCnt string) error {

@@ -142,7 +142,16 @@ func (u *GithubDB) getIssue(title string) (string, int, error) {
 	for _, issue := range issues {
 		if strings.Compare(*issue.Title, title) == 0 {
 			log.Printf("Issue with title '%s' found. %v \n", title, *issue)
-			return *issue.Body, *issue.Number, nil
+			retBody := ""
+			if issue.Body != nil {
+				retBody = *issue.Body
+			}
+
+			issueNum := 0
+			if issue.Number != nil {
+				issueNum = *issue.Number
+			}
+			return retBody, issueNum, nil
 		}
 	}
 	// not found.

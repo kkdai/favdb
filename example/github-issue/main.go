@@ -19,6 +19,7 @@ func main() {
 	}
 	addBookmarkArticle("title1", "Fav1")
 	addBookmarkArticle("title1", "Fav2")
+	showFavorite("title1")
 }
 
 func addBookmarkArticle(user, fav string) {
@@ -44,5 +45,19 @@ func addBookmarkArticle(user, fav string) {
 		}
 		record.Favorites = oldRecords
 		DB.Update(record)
+	}
+}
+
+func showFavorite(userId string) {
+	userData, _ := DB.Get(userId)
+
+	// No userData or user has empty Fav, return!
+	if userData == nil || (userData != nil && len(userData.Favorites) == 0) {
+		log.Println("No data")
+		return
+	}
+	log.Println(userId, "data exist.")
+	for _, v := range userData.Favorites {
+		log.Println("Fav:", v)
 	}
 }

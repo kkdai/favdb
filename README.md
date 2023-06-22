@@ -1,4 +1,4 @@
-favdb: User Favorite DB handle in go (memory, github issue, postgesDB...)
+favdb: User Favorite DB handle in go (memory, GitHub issue, and PostgreSQL)
 ======================
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kkdai/fav/master/LICENSE) [![GoDoc](https://godoc.org/github.com/kkdai/fav?status.svg)](https://godoc.org/github.com/kkdai/fav)[![Go](https://github.com/kkdai/photomgr/actions/workflows/go.yml/badge.svg)](https://github.com/kkdai/fav/actions/workflows/go.yml)

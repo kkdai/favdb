@@ -1,7 +1,7 @@
 favdb: User Favorite DB handle in go (memory, GitHub issue, and PostgreSQL)
 ======================
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kkdai/fav/master/LICENSE) [![GoDoc](https://godoc.org/github.com/kkdai/fav?status.svg)](https://godoc.org/github.com/kkdai/fav)[![Go](https://github.com/kkdai/photomgr/actions/workflows/go.yml/badge.svg)](https://github.com/kkdai/fav/actions/workflows/go.yml)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kkdai/favdb/master/LICENSE) [![GoDoc](https://godoc.org/github.com/kkdai/favdb?status.svg)](https://godoc.org/github.com/kkdai/favdb)[![Go](https://github.com/kkdai/favdb/actions/workflows/go.yml/badge.svg)](https://github.com/kkdai/favdb/actions/workflows/go.yml)
 
 fav is a package to help you setup a single entry fo MemoryDB, Github Issue, PostgresSQL DB with user favorite.
 
